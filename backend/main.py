@@ -12,6 +12,7 @@ from app.satellite.router import router as satellite_router
 from app.geofusion.router import router as geofusion_router
 from app.api.sentinel_processing import router as sentinel_processing_router
 from app.api.moisture_stress import router as moisture_stress_router
+from app.api.irrigation import router as irrigation_router
 from app.core.settings import settings
 
 application = FastAPI(
@@ -42,4 +43,5 @@ application.include_router(satellite_router, prefix="/api")
 application.include_router(geofusion_router, prefix="/api")
 application.include_router(sentinel_processing_router, prefix="/api")
 application.include_router(moisture_stress_router, prefix="/api")
+application.include_router(irrigation_router, prefix="/api")
 app = application
