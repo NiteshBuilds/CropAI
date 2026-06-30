@@ -301,6 +301,21 @@ This phase introduces the satellite integration layer for the MVP, securely conn
 
 ---
 
+## Phase 6: GeoFusion Engine
+
+This phase introduces the GeoFusion Engine (GFE) foundation. The purpose of this module is to prepare a unified feature vector by combining diverse data modalities into a single, cohesive observation struct.
+
+### Why Fuse Data?
+Crop intelligence requires a multidimensional perspective:
+- **Optical Indices (Sentinel-2):** NDVI, NDMI, EVI, and SAVI measure the surface-level vigor and chlorophyll content.
+- **SAR Backscatter (Sentinel-1):** VV, VH, and their ratios penetrate the canopy to provide structural information and proxy measurements for soil moisture.
+- **Weather Observations:** Rainfall, temperature, humidity, and wind speed contextualize the spectral data (e.g., distinguishing a drop in NDVI caused by harvest vs. one caused by drought).
+
+### AI Consumption
+By fusing these three distinct domains into a `UnifiedFeatureVector` alongside spatio-temporal identifiers (crop type, growth stage, geolocation), we construct the exact tensor shape that the machine learning models (XGBoost, Random Forest) will consume in later phases for classification, stress detection, and irrigation advisory.
+
+---
+
 ## Future Roadmap
 
 ### Phase 1 — Data Ingestion
