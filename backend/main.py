@@ -15,6 +15,8 @@ from app.api.moisture_stress import router as moisture_stress_router
 from app.api.irrigation import router as irrigation_router
 from app.api.advisory import router as advisory_router
 from app.api.dashboard import router as dashboard_router
+from app.api.yield_prediction import router as yield_prediction_router
+from app.api.ai_decision import router as ai_decision_router
 from app.core.settings import settings
 
 application = FastAPI(
@@ -48,4 +50,6 @@ application.include_router(moisture_stress_router, prefix="/api")
 application.include_router(irrigation_router, prefix="/api")
 application.include_router(advisory_router, prefix="/api")
 application.include_router(dashboard_router, prefix="/api")
+application.include_router(yield_prediction_router, prefix="/api")
+application.include_router(ai_decision_router, prefix="/api")
 app = application
