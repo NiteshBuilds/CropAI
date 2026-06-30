@@ -244,6 +244,52 @@ The API provides two endpoints for managing authentication:
 
 ---
 
+## District Intelligence Module
+
+This project currently operates as a Hackathon MVP, heavily optimized and constrained to a specific region to ensure high accuracy and performance.
+
+### Active Configuration
+The current system is strictly configured for:
+- **District:** Sehore
+- **State:** Madhya Pradesh
+- **Country:** India
+- **Season:** Kharif (June - October)
+- **Major Crops:** Soybean, Paddy, Maize, Pigeon Pea (Tur)
+
+All regional intelligence (crop calendars, area of interest polygons, satellite/weather sources) is centralized in `backend/config/district_config.json`. 
+
+### Changing the District
+The system is built for future expansion. To replace Sehore with another district later:
+1. Update `backend/config/district_config.json` with the new district's coordinates, season, and crop calendars.
+2. The `ConfigService` will automatically parse and validate the new JSON against the strict schema.
+3. The rest of the backend services (and eventually the AI models) will dynamically adjust their parameters based on the new configuration.
+
+### Configuration Endpoints
+You can retrieve the active configuration via the following endpoints:
+- `GET /api/config` — Returns the complete district configuration.
+- `GET /api/config/crops` — Returns only the supported crops and their sowing/harvesting calendars.
+- `GET /api/config/season` — Returns the season boundaries (start/end months).
+
+---
+
+## Phase 4: Temporal Spectral Dataset Foundation
+
+This section introduces the foundational structure for building a temporal spectral dataset. 
+
+### Why Temporal Observations?
+Crop monitoring requires understanding how a plant's spectral signature changes over time. An isolated satellite image provides only a snapshot, which is insufficient for distinguishing crops that may look identical at a certain point but have entirely different growth cycles. Temporal observations allow the system to track the complete phenological curve (from sowing to maturity).
+
+### Alignment with Crop Monitoring
+By combining specific growth stages with time-series spectral data (e.g., NDVI, EVI) and localized weather inputs, the AI models can accurately classify crop types, detect subtle moisture stress anomalies, and generate precise irrigation advisories tailored to the crop's current needs.
+
+### Future Population
+While the current dataset builder creates empty structural templates and mock samples, later phases will seamlessly populate these observations by:
+- **Sentinel-2:** Fetching optical indices (NDVI, NDMI, EVI) to measure vegetation health and water content.
+- **Sentinel-1:** Incorporating SAR backscatter (VV, VH) to estimate soil moisture beneath the crop canopy.
+- **Open-Meteo:** Integrating localized daily weather parameters (temperature, rainfall, humidity, wind speed) to calculate evapotranspiration.
+
+---
+
 ## Future Roadmap
 
 ### Phase 1 — Data Ingestion

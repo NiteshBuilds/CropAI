@@ -1,0 +1,47 @@
+{
+  "district": "Sehore",
+  "state": "Madhya Pradesh",
+  "country": "India",
+  "season": {
+    "name": "Kharif",
+    "start_month": "June",
+    "end_month": "October"
+  },
+  "crop_calendar": {
+    "Soybean": {
+      "sowing": "June-July",
+      "harvesting": "September-October"
+    },
+    "Paddy": {
+      "sowing": "June-July",
+      "harvesting": "October-November"
+    },
+    "Maize": {
+      "sowing": "June-July",
+      "harvesting": "September-October"
+    },
+    "Pigeon Pea (Tur)": {
+      "sowing": "June-July",
+      "harvesting": "December-January"
+    }
+  },
+  "satellite_sources": [
+    "Sentinel-1 (SAR)",
+    "Sentinel-2 (Optical)"
+  ],
+  "weather_source": "Open-Meteo",
+  "aoi_placeholder": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [76.5, 22.5],
+        [77.5, 22.5],
+        [77.5, 23.5],
+        [76.5, 23.5],
+        [76.5, 22.5]
+      ]
+    ]
+  },
+  "metadata_version": "1.0",
+  "last_updated": "2026-06-30T00:00:00Z"
+}
