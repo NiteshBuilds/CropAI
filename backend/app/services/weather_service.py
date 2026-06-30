@@ -11,10 +11,16 @@ Responsibilities (future phases):
 - Retrieve historical reanalysis data (ERA5) for crop-stress correlation
 - Supply evapotranspiration (ET₀) estimates for irrigation advisory
 
-Current phase: configuration validation only.
+Current phase: configuration validation plus MVP placeholder observations.
 """
 
+import logging
+import random
+
 from app.core.api_config import OpenMeteoConfig, open_meteo_config
+from app.geofusion.schemas import WeatherFeatures
+
+logger = logging.getLogger(__name__)
 
 
 class WeatherServiceError(Exception):
@@ -58,3 +64,46 @@ class WeatherService:
                 "historical_endpoint": self._config.historical_endpoint,
             }
         return {"status": "not_configured", "detail": "OPEN_METEO_BASE_URL not set"}
+
+    async def get_weather_observation(
+        self, latitude: float, longitude: float, observation_date: str
+    ) -> WeatherFeatures:
+        """Return weather variables for a location and date.
+
+        MVP phase: returns deterministic placeholder values seeded by inputs.
+        Later phases will call the Open-Meteo forecast / archive endpoints.
+        """
+        logger.info(
+            "Fetching weather observation for %s, %s on %s",
+            latitude,
+            longitude,
+            observation_date,
+        )
+
+        if not self._config.is_configured:
+            logger.warning(
+                "Open-Meteo is not configured. Falling back to offline placeholders."
+            )
+
+        seed_val = hash(f"weather_{latitude}_{longitude}_{observation_date}")
+        random.seed(seed_val)
+
+        return WeatherFeatures(
+            rainfall=round(random.uniform(0.0, 25.0), 1),
+            temperature=round(random.uniform(22.0, 40.0), 1),
+            humidity=round(random.uniform(40.0, 95.0), 1),
+            wind_speed=round(random.uniform(2.0, 15.0), 1),
+        )
+
+
+def _create_weather_service() -> WeatherService:
+    """Instantiate the weather service, using a default base URL for local MVP runs."""
+    try:
+        return WeatherService()
+    except WeatherServiceError:
+        return WeatherService(
+            config=OpenMeteoConfig(base_url="https://api.open-meteo.com/v1")
+        )
+
+
+weather_service = _create_weather_service()
