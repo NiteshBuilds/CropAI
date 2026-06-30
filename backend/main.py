@@ -14,6 +14,7 @@ from app.api.sentinel_processing import router as sentinel_processing_router
 from app.api.moisture_stress import router as moisture_stress_router
 from app.api.irrigation import router as irrigation_router
 from app.api.advisory import router as advisory_router
+from app.api.dashboard import router as dashboard_router
 from app.core.settings import settings
 
 application = FastAPI(
@@ -46,4 +47,5 @@ application.include_router(sentinel_processing_router, prefix="/api")
 application.include_router(moisture_stress_router, prefix="/api")
 application.include_router(irrigation_router, prefix="/api")
 application.include_router(advisory_router, prefix="/api")
+application.include_router(dashboard_router, prefix="/api")
 app = application
