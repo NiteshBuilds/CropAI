@@ -8,6 +8,7 @@ from app.api.services_health import router as services_health_router
 from app.api.copernicus import router as copernicus_router
 from app.api.config import router as config_router
 from app.api.dataset import router as dataset_router
+from app.satellite.router import router as satellite_router
 from app.core.settings import settings
 
 application = FastAPI(
@@ -34,4 +35,5 @@ application.include_router(services_health_router, prefix="/api")
 application.include_router(copernicus_router, prefix="/api")
 application.include_router(config_router, prefix="/api")
 application.include_router(dataset_router, prefix="/api")
+application.include_router(satellite_router, prefix="/api")
 app = application

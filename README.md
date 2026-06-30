@@ -290,6 +290,17 @@ While the current dataset builder creates empty structural templates and mock sa
 
 ---
 
+## Phase 5: Sentinel Data Acquisition Layer
+
+This phase introduces the satellite integration layer for the MVP, securely connecting to the Copernicus Data Space Ecosystem. 
+
+- **Sentinel-2** supplies high-resolution optical observations, critical for generating vegetation indices (NDVI, NDMI, EVI) to assess crop health.
+- **Sentinel-1** supplies Synthetic Aperture Radar (SAR) observations, which penetrate cloud cover and provide structural and soil moisture proxies (VV/VH backscatter).
+
+**Important:** During this phase, only **scene metadata** is retrieved via the Copernicus OData catalogue. Actual image downloading, sub-setting to the district AOI, and spectral extraction into the temporal dataset will happen in later phases to preserve bandwidth and MVP processing limits.
+
+---
+
 ## Future Roadmap
 
 ### Phase 1 — Data Ingestion
